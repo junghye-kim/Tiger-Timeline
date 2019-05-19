@@ -74,7 +74,7 @@ h1{
 }
 
 img.timeline{
-  max-width: 25%;
+  max-width: 100%;
   height: auto;
   padding-top: 50px;
   padding-bottom: 50px;
@@ -84,27 +84,62 @@ div.timeline{
   background: linear-gradient(#999999, #999999) no-repeat center/2px 100%;
 }
 
-/* Style the button that is used to open and close the collapsible content */
+
 .collapsible {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 25px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-}
+  display: block;
+  margin-bottom: 1rem;
 
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active, .collapsible:hover {
-  background-color: #ccc;
-}
+  input {
+    position: absolute;
+    left: -9999px;
+    &:focus ~ .collapser{
+      border-color: grey;
+    }
+  }
 
-/* Style the collapsible content. Note: hidden by default */
-.content {
-  padding: 0 18px;
-  overflow: hidden;
-  background-color: #db36c5;
+  .collapser {
+    cursor: pointer;
+    border: 1px transparent dotted;
+  }
+
+  .arrow {
+    float: right;
+    margin-left: 0.5em;
+    display: inline-block;
+    transform: rotate(90deg);
+    transition: transform .25s ease-out;
+  }
+
+  input:checked ~ .arrow,
+  input:checked ~ .collapser .arrow {
+    transform: rotate(270deg);
+  }
+
+  .collapsed {
+    font-size: 0;
+    margin: 0;
+    opacity: 0;
+    padding: 0;
+
+    /* fade out, then shrink */
+    transition:
+      opacity .25s,
+      margin .5s 0.25s,
+      font-size .5s 0.25s,
+      padding .5s .25s;
+  }
+
+  input:checked ~ .collapsed {
+    font-size: 16px;
+    opacity: 1;
+    height: auto;
+    padding: 5px 0;
+
+    /* grow, then fade in */
+    transition:
+      margin .25s,
+      padding .25s,
+      font-size .25s,
+      opacity .5s .25s;
+  }
 }
